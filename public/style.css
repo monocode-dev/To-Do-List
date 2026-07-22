@@ -1,0 +1,309 @@
+:root {
+    --board-bg: #1b1f2a;
+    --column-bg: #242a37;
+    --column-border: #333c4f;
+    --card-bg: #f7f2e6;
+    --card-bg-alt: #f1ebdc;
+    --ink: #262a35;
+    --ink-soft: #6b7280;
+    --paper-line: #d8cba9;
+    --pin: #c1503a;
+    --accent-todo: #7fa3c7;
+    --accent-doing: #e6a33d;
+    --accent-done: #6fb98a;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+  color: #e8e6df;
+  background-color: var(--board-bg);
+  background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.045) 1px, transparent 0);
+  background-size: 24px 24px;
+  padding: 48px 32px 80px;
+}
+.board-head {
+  max-width: 1100px;
+  margin: 0 auto 36px;
+}
+.board-head .eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-doing);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.board-head h1 {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 34px;
+  margin: 0;
+  color: #f5f2ea;
+}
+.board-head p {
+  margin: 6px 0 0;
+  color: #a2a8b5;
+  font-size: 14.5px;
+}
+/* ---------- Add task bar ---------- */
+.add-task-bar {
+  max-width: 1100px;
+  margin: 0 auto 40px;
+  background: var(--card-bg);
+  border-radius: 10px;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.35), 0 1px 0 rgba(255,255,255,0.4) inset;
+  position: relative;
+}
+.add-task-bar::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 28px;
+  width: 46px;
+  height: 18px;
+  background: var(--paper-line);
+  opacity: 0.9;
+  transform: rotate(-3deg);
+  border-radius: 2px;
+  box-shadow: 0 2px 3px rgba(0,0,0,0.25);
+}
+
+#addTask {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+}
+.add-task-bar label {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--ink);
+  white-space: nowrap;
+  padding-left: 10px;
+}
+.add-task-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  border-bottom: 2px dashed var(--paper-line);
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  color: var(--ink);
+  padding: 6px 4px;
+  outline: none;
+}
+.add-task-input::placeholder { color: var(--ink-soft); }
+.add-task-input:focus-visible {
+  border-bottom-color: var(--pin);
+}
+.add-task-btn {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: none;
+  background: var(--pin);
+  color: #fff8f0;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(193,80,58,0.5);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.add-task-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(193,80,58,0.55);
+}
+.add-task-btn:active { transform: translateY(0); }
+.add-task-btn:focus-visible,
+.task-card:focus-visible {
+  outline: 2px solid var(--accent-doing);
+  outline-offset: 3px;
+}
+/* ---------- Board columns ---------- */
+.board {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+  align-items: start;
+}
+.column {
+  background: var(--column-bg);
+  border: 1px solid var(--column-border);
+  border-radius: 16px;
+  padding: 34px 16px 20px;
+  min-height: 420px;
+}
+.column.todo  { --accent: var(--accent-todo); }
+.column.doing { --accent: var(--accent-doing); }
+.column.done  { --accent: var(--accent-done); }
+.column-header {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--paper-line);
+  color: var(--ink);
+  padding: 7px 16px 7px 12px;
+  border-radius: 3px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+  position: relative;
+  top: -24px;
+  margin-bottom: -12px;
+}
+.column:nth-child(1) .column-header { left: 8px;  transform: rotate(-2deg); }
+.column:nth-child(2) .column-header { left: 14px; transform: rotate(1.5deg); }
+.column:nth-child(3) .column-header { left: 6px;  transform: rotate(-1deg); }
+.column-header h2 {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 14.5px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  margin: 0;
+}
+.task-count {
+  background: var(--accent);
+  color: #1b1f2a;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 11.5px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+/* ---------- Drop zone ---------- */
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 220px;
+  padding: 6px 4px 4px;
+  border-radius: 10px;
+  transition: background 0.15s ease, box-shadow 0.15s ease;
+}
+/* Toggle this class from JS while dragging over a column */
+.task-list.drag-over {
+  background: rgba(255,255,255,0.035);
+  box-shadow: inset 0 0 0 2px dashed var(--accent);
+  outline: 2px dashed var(--accent);
+  outline-offset: -6px;
+}
+.task-list:empty::after {
+  content: "Drop tasks here";
+  display: block;
+  text-align: center;
+  font-size: 13px;
+  color: var(--ink-soft);
+  border: 2px dashed var(--column-border);
+  border-radius: 10px;
+  padding: 34px 10px;
+  opacity: 0.8;
+}
+/* ---------- Task card ---------- */
+.task-card {
+  background: var(--card-bg);
+  color: var(--ink);
+  border-radius: 8px;
+  padding: 14px 14px 12px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.28);
+  cursor: grab;
+  position: relative;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+.task-card:nth-child(odd)  { transform: rotate(-0.6deg); }
+.task-card:nth-child(even) { transform: rotate(0.5deg); background: var(--card-bg-alt); }
+.task-card:hover {
+  transform: rotate(0deg) translateY(-3px);
+  box-shadow: 0 12px 20px rgba(0,0,0,0.35);
+}
+.task-card::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--pin);
+  box-shadow: 0 2px 3px rgba(0,0,0,0.4);
+}
+/* Add this class from JS to the card currently being dragged */
+.task-card.dragging {
+  opacity: 0.45;
+  transform: rotate(0deg) scale(0.98);
+  cursor: grabbing;
+}
+.task-card .tag {
+  display: inline-block;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #1b1f2a;
+  background: var(--accent);
+  padding: 3px 8px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+}
+.task-card p {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.4;
+}
+.task-card .card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+.drag-handle {
+  display: flex;
+  gap: 3px;
+}
+.drag-handle span {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--ink-soft);
+}
+.task-delete {
+  display: flex;
+  justify-self: flex-end;
+  margin-top: 10px;
+  border: none;
+  background: transparent;
+  color: var(--ink-soft);
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+.task-delete:hover {
+  color: var(--pin);
+  background: rgba(193,80,58,0.1);
+}
+/* ---------- Responsive ---------- */
+@media (max-width: 780px) {
+  .board { grid-template-columns: 1fr; }
+  body { padding: 32px 18px 60px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}

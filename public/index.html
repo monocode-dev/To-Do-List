@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>To-Do List</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="board-head">
+    <div class="eyebrow">Task Board</div>
+    <h1>To-Do List</h1>
+    <p>Pin a task, move it across the board.</p>
+  </div>
+
+  <div class="add-task-bar">
+    <form id="addTask">
+      <label for="add-task-input">New</label>
+      <input type="text" id="add-task-input" class="add-task-input" placeholder="What needs doing?">
+      <button id="add-task-btn" class="add-task-btn" type="submit" aria-label="Add task">+</button>
+    </form>
+  </div>
+
+  <div class="board">
+
+    <section class="column todo">
+      <div class="column-header">
+        <h2>To Do</h2>
+      </div>
+      <div class="task-list" data-status="todo"> 
+      </div>
+    </section>
+
+    <section class="column doing">
+      <div class="column-header">
+        <h2>Doing</h2>
+      </div>
+      <div class="task-list" data-status="doing">
+      </div>
+    </section>
+
+    <section class="column done">
+      <div class="column-header">
+        <h2>Done</h2>
+      </div>
+      <div class="task-list" data-status="done">
+      </div>
+    </section>
+
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
